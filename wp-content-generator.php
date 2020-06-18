@@ -61,11 +61,13 @@ function wcg_admin_page() {
 
 
   <div class="wcg_inputs"> 
-    <input type="number"  min="1" max="55" value="20" class="wcg_count">
+    <label> Number of contents</label>
+    <input type="number"  min="1" max="55" value="20" class="wcg_count"> 
   </div>
 
   <div class="wcg_inputs">
-    <input type="checkbox" class="wcg_featured_image"> <label> With featured image?</label>
+    <label> With featured image?</label>
+    <input type="checkbox" class="wcg_featured_image">
   </div>
 
   <div class="wcg_inputs">
