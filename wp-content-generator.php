@@ -12,6 +12,12 @@ Author URI:  http://causingdesignscom.kinsta.cloud/
 // https://www.webslesson.info/2019/09/how-to-create-progress-bar-for-data-insert-in-php-using-ajax.html
 
 
+// Load JS and CSS scripts for admin
+function wcg_admin_scripts() {
+  wp_enqueue_style(  'wcg_css', plugin_dir_url( __FILE__ ) . 'css/wcg.css', false, '1.0.0' );
+  wp_enqueue_script( 'wcg_js', plugin_dir_url(__FILE__).'js/wcg.js', array('jquery') );
+}
+add_action( 'admin_enqueue_scripts', 'wcg_admin_scripts' );
 
 
 // Loren Ipsum text generator -- START -- Title generator
@@ -121,6 +127,7 @@ add_action( 'activated_plugin', 'wcg_activation_redirect' );
 
 
 
+/* 
 
 // Call js scripts
 wp_register_script( 'wcg_js', plugin_dir_url(__FILE__).'js/wcg.js', array('jquery') );
@@ -132,6 +139,10 @@ function wcg_enqueue_custom_admin_style() {
   wp_enqueue_style( 'wcg_css' );
 }
 add_action( 'admin_enqueue_scripts', 'wcg_enqueue_custom_admin_style' ); 
+
+
+ */
+
 
 
 
