@@ -11,6 +11,106 @@ Author URI:  http://causingdesignscom.kinsta.cloud/
 // reference for loading progress bar 
 // https://www.webslesson.info/2019/09/how-to-create-progress-bar-for-data-insert-in-php-using-ajax.html
 
+
+
+
+// Loren Ipsum text generator -- START -- Title generator
+// ######  
+// Usage: 
+// echo Lorem::title(1);
+abstract class Lorem {
+  public static function title($nparagraphs) {
+      $paragraphs = [];
+      for($p = 0; $p < $nparagraphs; ++$p) {
+          $nsentences = random_int(1, 1);
+          $sentences = [];
+          for($s = 0; $s < $nsentences; ++$s) {
+              $frags = [];
+              $commaChance = .33;
+              while(true) {
+                  $nwords = random_int(3, 8);
+                  $words = self::random_values(self::$lorem, $nwords);
+                  $frags[] = implode(' ', $words);
+                  if(self::random_float() >= $commaChance) {
+                      break;
+                  }
+                  $commaChance /= 2;
+              }
+
+              $sentences[] = ucfirst(implode(', ', $frags)) . '.';
+          }
+          $paragraphs[] = implode(' ', $sentences);
+      }
+      return implode("\n\n", $paragraphs);
+  }
+
+  private static function random_float() {
+      return random_int(0, PHP_INT_MAX - 1) / PHP_INT_MAX;
+  }
+
+  private static function random_values($arr, $count) {
+      $keys = array_rand($arr, $count);
+      if($count == 1) {
+          $keys = [$keys];
+      }
+      return array_intersect_key($arr, array_fill_keys($keys, null));
+  }
+
+  private static $lorem = ['lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'praesent', 'interdum', 'dictum', 'mi', 'non', 'egestas', 'nulla', 'in', 'lacus', 'sed', 'sapien', 'placerat', 'malesuada', 'at', 'erat', 'etiam', 'id', 'velit', 'finibus', 'viverra', 'maecenas', 'mattis', 'volutpat', 'justo', 'vitae', 'vestibulum', 'metus', 'lobortis', 'mauris', 'luctus', 'leo', 'feugiat', 'nibh', 'tincidunt', 'a', 'integer', 'facilisis', 'lacinia', 'ligula', 'ac', 'suspendisse', 'eleifend', 'nunc', 'nec', 'pulvinar', 'quisque', 'ut', 'semper', 'auctor', 'tortor', 'mollis', 'est', 'tempor', 'scelerisque', 'venenatis', 'quis', 'ultrices', 'tellus', 'nisi', 'phasellus', 'aliquam', 'molestie', 'purus', 'convallis', 'cursus', 'ex', 'massa', 'fusce', 'felis', 'fringilla', 'faucibus', 'varius', 'ante', 'primis', 'orci', 'et', 'posuere', 'cubilia', 'curae', 'proin', 'ultricies', 'hendrerit', 'ornare', 'augue', 'pharetra', 'dapibus', 'nullam', 'sollicitudin', 'euismod', 'eget', 'pretium', 'vulputate', 'urna', 'arcu', 'porttitor', 'quam', 'condimentum', 'consequat', 'tempus', 'hac', 'habitasse', 'platea', 'dictumst', 'sagittis', 'gravida', 'eu', 'commodo', 'dui', 'lectus', 'vivamus', 'libero', 'vel', 'maximus', 'pellentesque', 'efficitur', 'class', 'aptent', 'taciti', 'sociosqu', 'ad', 'litora', 'torquent', 'per', 'conubia', 'nostra', 'inceptos', 'himenaeos', 'fermentum', 'turpis', 'donec', 'magna', 'porta', 'enim', 'curabitur', 'odio', 'rhoncus', 'blandit', 'potenti', 'sodales', 'accumsan', 'congue', 'neque', 'duis', 'bibendum', 'laoreet', 'elementum', 'suscipit', 'diam', 'vehicula', 'eros', 'nam', 'imperdiet', 'sem', 'ullamcorper', 'dignissim', 'risus', 'aliquet', 'habitant', 'morbi', 'tristique', 'senectus', 'netus', 'fames', 'nisl', 'iaculis', 'cras', 'aenean'];
+}
+// ######  
+// Loren Ipsum text generator -- END
+
+
+// Loren Ipsum text generator -- START -- Body generator
+// ######  
+// Usage: 
+// echo Lorem::body(5);
+abstract class Lorem_body {
+  public static function body($nparagraphs) {
+      $paragraphs = [];
+      for($p = 0; $p < $nparagraphs; ++$p) {
+          $nsentences = random_int(3, 8);
+          $sentences = [];
+          for($s = 0; $s < $nsentences; ++$s) {
+              $frags = [];
+              $commaChance = .33;
+              while(true) {
+                  $nwords = random_int(3, 15);
+                  $words = self::random_values(self::$lorem, $nwords);
+                  $frags[] = implode(' ', $words);
+                  if(self::random_float() >= $commaChance) {
+                      break;
+                  }
+                  $commaChance /= 2;
+              }
+
+              $sentences[] = ucfirst(implode(', ', $frags)) . '.';
+          }
+          $paragraphs[] = implode(' ', $sentences);
+      }
+      return implode("\n\n", $paragraphs);
+  }
+
+  private static function random_float() {
+      return random_int(0, PHP_INT_MAX - 1) / PHP_INT_MAX;
+  }
+
+  private static function random_values($arr, $count) {
+      $keys = array_rand($arr, $count);
+      if($count == 1) {
+          $keys = [$keys];
+      }
+      return array_intersect_key($arr, array_fill_keys($keys, null));
+  }
+
+  private static $lorem = ['lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'praesent', 'interdum', 'dictum', 'mi', 'non', 'egestas', 'nulla', 'in', 'lacus', 'sed', 'sapien', 'placerat', 'malesuada', 'at', 'erat', 'etiam', 'id', 'velit', 'finibus', 'viverra', 'maecenas', 'mattis', 'volutpat', 'justo', 'vitae', 'vestibulum', 'metus', 'lobortis', 'mauris', 'luctus', 'leo', 'feugiat', 'nibh', 'tincidunt', 'a', 'integer', 'facilisis', 'lacinia', 'ligula', 'ac', 'suspendisse', 'eleifend', 'nunc', 'nec', 'pulvinar', 'quisque', 'ut', 'semper', 'auctor', 'tortor', 'mollis', 'est', 'tempor', 'scelerisque', 'venenatis', 'quis', 'ultrices', 'tellus', 'nisi', 'phasellus', 'aliquam', 'molestie', 'purus', 'convallis', 'cursus', 'ex', 'massa', 'fusce', 'felis', 'fringilla', 'faucibus', 'varius', 'ante', 'primis', 'orci', 'et', 'posuere', 'cubilia', 'curae', 'proin', 'ultricies', 'hendrerit', 'ornare', 'augue', 'pharetra', 'dapibus', 'nullam', 'sollicitudin', 'euismod', 'eget', 'pretium', 'vulputate', 'urna', 'arcu', 'porttitor', 'quam', 'condimentum', 'consequat', 'tempus', 'hac', 'habitasse', 'platea', 'dictumst', 'sagittis', 'gravida', 'eu', 'commodo', 'dui', 'lectus', 'vivamus', 'libero', 'vel', 'maximus', 'pellentesque', 'efficitur', 'class', 'aptent', 'taciti', 'sociosqu', 'ad', 'litora', 'torquent', 'per', 'conubia', 'nostra', 'inceptos', 'himenaeos', 'fermentum', 'turpis', 'donec', 'magna', 'porta', 'enim', 'curabitur', 'odio', 'rhoncus', 'blandit', 'potenti', 'sodales', 'accumsan', 'congue', 'neque', 'duis', 'bibendum', 'laoreet', 'elementum', 'suscipit', 'diam', 'vehicula', 'eros', 'nam', 'imperdiet', 'sem', 'ullamcorper', 'dignissim', 'risus', 'aliquet', 'habitant', 'morbi', 'tristique', 'senectus', 'netus', 'fames', 'nisl', 'iaculis', 'cras', 'aenean'];
+}
+// ######  
+// Loren Ipsum text generator -- END
+
+
+
 // redirect to plugin option page when plugin is activated
 function wcg_activation_redirect( $plugin ) {
   if( $plugin == plugin_basename( __FILE__ ) ) {
@@ -43,6 +143,13 @@ function wcg_register_options_page() {
 add_action('admin_menu', 'wcg_register_options_page');
    
 function wcg_admin_page() {
+
+
+
+
+
+
+
 
   
   // let's get all registered post types for dropdown select
@@ -103,9 +210,11 @@ function wcg_admin_page() {
       <div class="wcg_loading_delete" style="display: none;"></div>
     </div>
 
+
 </div>
   
 <?php
+
 }
 
 
@@ -127,13 +236,17 @@ function wcg_start_generate_function() {
       // start loop
       for($x = 1; $x <= $quantity; $x++) {
 
+        $wcg_post_title = Lorem::title(1);
+        $wcg_post_body = Lorem_body::body(5);
+        
+
 
         //  echo 'This is the post type selected ' . $post_type;
         // Gather post data.
         $my_post = array(
-            'post_title'    => 'My post',
+            'post_title'    => $wcg_post_title,
             'post_type' => $post_type,
-            'post_content'  => 'This is my post.',
+            'post_content'  => $wcg_post_body,
             'post_status'   => 'publish',
             'post_author'   => 1,
             'post_category' => array( 8,39 ),
