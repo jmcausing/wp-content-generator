@@ -1,0 +1,42 @@
+.wcg_container {
+  padding: 20px;
+  background: #fff;
+}
+
+.wcg_inputs {
+    display: inline;
+    padding: 10px;
+    margin: 5px;
+  }
+  
+
+.wcg_loading_create {
+    width: 120px;
+    height: 80px;
+    background-image: url(5.gif);
+    background-repeat: no-repeat;
+    margin: auto;
+    margin-top: 20px;
+}
+
+
+.wcg_loading_delete {
+  width: 120px;
+  height: 80px;
+  background-image: url(5.gif);
+  background-repeat: no-repeat;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.wcg_loading_delete h1 {
+  text-align: center;
+}
+
+.wcg_preloader_create h1 {
+  text-align: center;
+}
+
+.wcg_preloader_delete h1 {
+  text-align: center;
+}
