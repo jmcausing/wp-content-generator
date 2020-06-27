@@ -8,7 +8,6 @@
     padding: 10px;
     margin: 5px;
   }
-  
 
 .wcg_loading_create {
     width: 120px;
@@ -18,7 +17,6 @@
     margin: auto;
     margin-top: 20px;
 }
-
 
 .wcg_loading_delete {
   width: 120px;
@@ -39,4 +37,31 @@
 
 .wcg_preloader_delete h1 {
   text-align: center;
+}
+
+.input_container {
+  padding: 20px;
+  border: 0.5px solid #ebeaea;
+  border-left: 10px solid #23282d;
+}
+
+.wcg_inputs button {
+  padding: 10px;
+  background: #6464ff;
+  font-size: 15px;
+  color: #fff;
+  border: 0px;
+}
+
+button.wcg_delete {
+  background: #a81d1d;
+}
+
+input.wcg_featured_image {
+  height: 25px;
+  width: 25px;
+}
+
+input.wcg_featured_image:before {
+  margin: auto !important;
 }

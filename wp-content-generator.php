@@ -144,51 +144,54 @@ function wcg_admin_page() {
 
 <div class="wcg_container">
 
-    <h1> Here are the available post types (registered) </h1>
+    <h1> WordPress Content Generator! Let's generate some contents! </h1>
 
-    <div class="wcg_inputs"> 
-      <label> Number of contents</label>
-      <input type="number"  min="1" max="55" value="2" class="wcg_count"> 
+    <div class="input_container">
+      <div class="wcg_inputs"> 
+        <label> Number of contents</label>
+        <input type="number"  min="1" max="55" value="2" class="wcg_count"> 
+      </div>
+
+      <div class="wcg_inputs">
+        <label> With featured image?</label>
+        <input type="checkbox" name="wcg_featured_image" class="wcg_featured_image" checked>
+      </div>
+
+      <div class="wcg_inputs">
+      <!--  Get all registered post types -->
+      <label> Select post type</label>
+        <select name="" id="" class="wgc_post_type">
+            <?php
+              // get all registered post types
+              foreach ( $wp_post_types as $type ) { 
+            ?>
+            <option> <?php echo $type->name ?> </option>
+            <?php } ?>
+        </select>
+      </div>
+
+      <div class="wcg_inputs">
+        <button class="wcg_submit"> Generate content!</button>
+      </div>
+
+      <div class="wcg_inputs">
+        <button class="wcg_delete"> Delete them all!</button>
+      </div>
+
+      <div class="wcg_preloader_create">
+        <h1 class="wcg_loading_create_done" style="display:none;"> &#9989; Content created...</h1>
+        <h1 class="wcg_preloader_create_h1" style="display:none;">Creating content...</h1>
+        <div class="wcg_loading_create" style="display: none;"></div>
+      </div>
+
+      <div class="wcg_preloader_delete">
+        <h1 class="wcg_loading_delete_done" style="display:none;"> &#9989; Content deleted...</h1>
+        <h1 class="wcg_preloader_delete_h1" style="display:none;">Deleting content...</h1>
+        <div class="wcg_loading_delete" style="display: none;"></div>
+      </div>    
+
     </div>
 
-    <div class="wcg_inputs">
-      <label> With featured image?</label>
-      <input type="checkbox" name="wcg_featured_image" class="wcg_featured_image" checked>
-    </div>
-
-    <div class="wcg_inputs">
-    <!--  Get all registered post types -->
-    <label> Select post type</label>
-      <select name="" id="" class="wgc_post_type">
-          <?php
-            // get all registered post types
-            foreach ( $wp_post_types as $type ) { 
-          ?>
-          <option> <?php echo $type->name ?> </option>
-          <?php } ?>
-      </select>
-    </div>
-
-    <div class="wcg_inputs">
-      <button class="wcg_submit"> Generate content!</button>
-    </div>
-
-    <div class="wcg_inputs">
-      <button class="wcg_delete"> Delete them all!</button>
-    </div>
-
-    <div class="wcg_preloader_create">
-      <h1 class="wcg_loading_create_done" style="display:none;"> &#9989; Content created...</h1>
-      <h1 class="wcg_preloader_create_h1" style="display:none;">Creating content...</h1>
-      <div class="wcg_loading_create" style="display: none;"></div>
-    </div>
-
-
-    <div class="wcg_preloader_delete">
-      <h1 class="wcg_loading_delete_done" style="display:none;"> &#9989; Content deleted...</h1>
-      <h1 class="wcg_preloader_delete_h1" style="display:none;">Deleting content...</h1>
-      <div class="wcg_loading_delete" style="display: none;"></div>
-    </div>
 
 
 </div>
