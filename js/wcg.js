@@ -3,6 +3,8 @@ jQuery(document).ready(function ($) {
 
     // Create contents -- START
     $( ".wcg_submit" ).click(function() {
+
+        with_featured_image = jQuery('.wcg_featured_image').is(":checked");
         post_type = jQuery('select.wgc_post_type').val();
         qty = jQuery('.wcg_count').val();
 
@@ -10,6 +12,7 @@ jQuery(document).ready(function ($) {
             "action": "wcg_start_generate",
             "post_type": post_type,
             "post_qty": qty,
+            "featured_image": with_featured_image
         };
 
         $.ajax({ 

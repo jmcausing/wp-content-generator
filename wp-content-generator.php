@@ -34,7 +34,7 @@ abstract class Lorem {
               $frags = [];
               $commaChance = .33;
               while(true) {
-                  $nwords = random_int(3, 8);
+                  $nwords = random_int(2, 4);
                   $words = self::random_values(self::$lorem, $nwords);
                   $frags[] = implode(' ', $words);
                   if(self::random_float() >= $commaChance) {
@@ -126,26 +126,6 @@ function wcg_activation_redirect( $plugin ) {
 add_action( 'activated_plugin', 'wcg_activation_redirect' );
 
 
-
-/* 
-
-// Call js scripts
-wp_register_script( 'wcg_js', plugin_dir_url(__FILE__).'js/wcg.js', array('jquery') );
-wp_enqueue_script( 'wcg_js' );
-
-// Add CSS 
-function wcg_enqueue_custom_admin_style() {
-  wp_register_style( 'wcg_css', plugin_dir_url( __FILE__ ) . 'css/wcg.css', false, '1.0.0' );
-  wp_enqueue_style( 'wcg_css' );
-}
-add_action( 'admin_enqueue_scripts', 'wcg_enqueue_custom_admin_style' ); 
-
-
- */
-
-
-
-
 // Creating plugin page -- START
 // #####
 function wcg_register_options_page() {
@@ -154,14 +134,6 @@ function wcg_register_options_page() {
 add_action('admin_menu', 'wcg_register_options_page');
    
 function wcg_admin_page() {
-
-
-
-
-
-
-
-
   
   // let's get all registered post types for dropdown select
   global $wp_post_types;
@@ -172,19 +144,16 @@ function wcg_admin_page() {
 
 <div class="wcg_container">
 
-
-
     <h1> Here are the available post types (registered) </h1>
-
 
     <div class="wcg_inputs"> 
       <label> Number of contents</label>
-      <input type="number"  min="1" max="55" value="20" class="wcg_count"> 
+      <input type="number"  min="1" max="55" value="2" class="wcg_count"> 
     </div>
 
     <div class="wcg_inputs">
       <label> With featured image?</label>
-      <input type="checkbox" class="wcg_featured_image">
+      <input type="checkbox" name="wcg_featured_image" class="wcg_featured_image" checked>
     </div>
 
     <div class="wcg_inputs">
@@ -239,6 +208,8 @@ function wcg_start_generate_function() {
   // Retrieve data from ajax
   if( isset( $_POST[ "post_type" ] ) ) {
 
+      $featured_image = $_POST['featured_image'];
+
       $post_type = $_POST[ "post_type" ];
       $quantity = $_POST[ "post_qty" ];
 
@@ -250,8 +221,6 @@ function wcg_start_generate_function() {
         $wcg_post_title = Lorem::title(1);
         $wcg_post_body = Lorem_body::body(5);
         
-
-
         //  echo 'This is the post type selected ' . $post_type;
         // Gather post data.
         $my_post = array(
@@ -264,23 +233,72 @@ function wcg_start_generate_function() {
         );
 
         // Insert the post into the database while getting the post_id
-        $result = wp_insert_post( $my_post );
+        $post_id = wp_insert_post( $my_post );
 
-        echo "Post ID  " .  $result . "  inserted!\n";
+        echo "Post ID  " .  $post_id . "  inserted!\n";
 
-/* 
-        wp_localize_script( 'wcg_js', 'wcg_data', array(
-            'wcg_post_id' => $result
-        ) );
+        // Insert featured image  -- START
+        // ###########
 
- */
+        if ($featured_image =='true') {
+   
+          // Add Featured Image to Post
+          $image_url        = 'https://picsum.photos/200/300?random=1'; // Define the image URL here
+          $image_name       = 'wp-header-logo.png';
+          $upload_dir       = wp_upload_dir(); // Set upload folder
+          $image_data       = file_get_contents($image_url); // Get image data
+          $unique_file_name = wp_unique_filename( $upload_dir['path'], $image_name ); // Generate unique name
+          $filename         = basename( $unique_file_name ); // Create image file name
 
-        if ( $result && ! is_wp_error( $result ) ) {
-              $post_id = $result;
+          // Check folder permission and define file location
+          if( wp_mkdir_p( $upload_dir['path'] ) ) {
+              $file = $upload_dir['path'] . '/' . $filename;
+          } else {
+              $file = $upload_dir['basedir'] . '/' . $filename;
+          }
+
+          // Create the image  file on the server
+          file_put_contents( $file, $image_data );
+
+          // Check image file type
+          $wp_filetype = wp_check_filetype( $filename, null );
+
+          // Set attachment data
+          $attachment = array(
+              'post_mime_type' => $wp_filetype['type'],
+              'post_title'     => sanitize_file_name( $filename ),
+              'post_content'   => '',
+              'post_status'    => 'inherit'
+          );
+
+          // Create the attachment
+          $attach_id = wp_insert_attachment( $attachment, $file, $post_id );
+
+          // Include image.php
+          require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+          // Define attachment metadata
+          $attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+
+          // Assign metadata to attachment
+          wp_update_attachment_metadata( $attach_id, $attach_data );
+
+          // And finally assign featured image to post
+          set_post_thumbnail( $post_id, $attach_id );
+
+      }
+        // ###########
+        // Insert featured image  -- END
+        
+
+        $img_src = 'https://picsum.photos/200/300?random=1';
+
+
+        if ( $post_id && ! is_wp_error( $post_id ) ) {
+              $post_id_meta = $post_id;
               // insert post meta for flagging
-              update_post_meta($post_id, 'wp_content_generator', '1' );
+              update_post_meta($post_id_meta, 'wp_content_generator', '1' );
          }
-
 
       }
       // end loop
@@ -303,8 +321,6 @@ add_action('wp_ajax_wcg_start_generate', 'wcg_start_generate_function'); // wp_a
 /// This is your ajax handler called to generate contents file
 function wcg_purge_posts() {
 
-
-
   // Retrieve data from ajax
   if( isset( $_POST[ "post_type" ] ) ) {
 
@@ -321,12 +337,12 @@ function wcg_purge_posts() {
       echo "Total post to delete " .  $query->found_posts . "\n"; 
 
 
-    
       foreach ($allposts as $eachpost) {
 
         $post_id = $eachpost->ID;
 
 
+        // Check flag if created by this plugin then proceed to deletion
         $flag =  (bool) get_post_meta( $post_id, 'wp_content_generator', true );
 
         echo "Checking if content is from WP Content Generator". "\n";
@@ -337,7 +353,16 @@ function wcg_purge_posts() {
 
         echo "Deleting post ID " . $post_id  . "\n";
 
+        
+        
+        // Delete post meta from attachment
+        $att_id =  get_post_meta( $post_id, '_thumbnail_id', true );
+        delete_post_meta($att_id, '_wp_attached_file');
+        delete_post_meta($att_id, '_wp_attachment_metadata');
+
+        // delete post
         wp_delete_post( $eachpost->ID, true );
+
 
       }
 
